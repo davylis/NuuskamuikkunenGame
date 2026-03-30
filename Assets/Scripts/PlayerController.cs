@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D _rb;
-    public float movementSpeed;
+    Rigidbody2D _rb;
+    [SerializeField] float movementSpeed;
+    [SerializeField] Animator _animator;
+    [SerializeField]SpriteRenderer _characterBody;
 
     void Start()
     {
@@ -23,6 +25,12 @@ public class PlayerController : MonoBehaviour
 
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
         movement = Vector2.ClampMagnitude(movement, 1.0f);
-        _rb.linearVelocity = movement * movementSpeed;
+        _rb.velocity = movement * movementSpeed;
+
+        bool characterIsWalking = movement.magnitude > 0f;
+        _animator.SetBool("IsWalking", characterIsWalking);
+
+        bool flipSprite = movement.x < 0f;
+        _characterBody.flipX = flipSprite;
     }
 }
