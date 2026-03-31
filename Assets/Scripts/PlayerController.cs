@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float movementSpeed;
     [SerializeField] Animator _animator;
     [SerializeField]SpriteRenderer _characterBody;
+    [SerializeField] AudioClip _footstep;
+    float _nextFootstepAudio = 0f;
 
     void Start()
     {
@@ -15,10 +17,10 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        HandlePalyerMovement();
+        HandlePlayerMovement();
     }
 
-    private void HandlePalyerMovement()
+    private void HandlePlayerMovement()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -30,7 +32,22 @@ public class PlayerController : MonoBehaviour
         bool characterIsWalking = movement.magnitude > 0f;
         _animator.SetBool("IsWalking", characterIsWalking);
 
+        if (characterIsWalking)
+        {
+            HandleWalkingSounds();
+        }
+
         bool flipSprite = movement.x < 0f;
         _characterBody.flipX = flipSprite;
+    }
+    void HandleWalkingSounds()
+    {
+        if(Time.time >= _nextFootstepAudio)
+        {
+            AudioManager.Instance.PlayAudio(_footstep, AudioManager.SoundType.SFX, 1f, false);
+
+            float audioFrequency = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.length / 2f;
+            _nextFootstepAudio = Time.time + audioFrequency;
+        }
     }
 }
