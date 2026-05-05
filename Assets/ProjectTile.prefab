@@ -194,10 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dace0fae4bbe34e1ba7893f03a1b2a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitParticles: {fileID: 8692179876217869192, guid: 7ca1fac4f192c49bfae0927f2c29a6f0, type: 3}
   _travelSpeed: 10
   _damage: 1
   _rb: {fileID: 1448033318652734219}
-  _hitParticles: {fileID: 8692179876217869192, guid: 7ca1fac4f192c49bfae0927f2c29a6f0, type: 3}
+  _enemyHitSound: {fileID: 8300000, guid: d318cfa828d47434a870342dc809cc0b, type: 3}
 --- !u!1 &5289214977286328927
 GameObject:
   m_ObjectHideFlags: 0
